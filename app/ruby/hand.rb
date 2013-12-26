@@ -35,8 +35,10 @@ class Hand
   end
 
   def show_dealer_hand
-    puts "Dealer shows: #{self.cards.first.rank} of #{self.cards.first.suit}s"
-      puts "\n"
+    puts "<this card is face down>"
+    self.cards[1..(self.cards.length)].each do |c|
+      puts "#{c.rank} of #{c.suit}s  "
+    end  
   end
 
 end

@@ -27,9 +27,13 @@ class Player
     puts "Would you like another card? (y)"
     decision = gets
     if decision == "y\n"
-      puts "you take a card"
+      puts "#{self.name} takes a card"
       self.hand.next_card(deck)
-      puts self.hand.inspect
+      if self.is_dealer
+        self.hand.show_dealer_hand
+      else
+        self.hand.show_hand
+      end
       self.is_bust(deck)
     else
       puts "You have stopped on #{self.hand.total}"
