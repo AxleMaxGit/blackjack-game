@@ -25,9 +25,13 @@ class BlackjackGame
     end
   end
 
-  def summary
+  def results
     self.players.each do |p|
-      puts "#{p.name} had #{p.hand.total}"
+      if p.hand.total <= 21
+        puts "#{p.name} had #{p.hand.total}"
+      else
+        puts "#{p.name} was bust!! \(#{p.hand.total}\)"
+      end
     end
   end
 
@@ -49,4 +53,4 @@ puts "\n"
 #deal starting hands
 game1.deal(game1.deck)
 game1.play_round(game1.deck)
-game1.summary
+game1.results
