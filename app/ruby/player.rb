@@ -43,7 +43,7 @@ class Player
 
   def is_bust(deck)
     if self.hand.total > 21
-      puts "#{self.hand.total}!! You are bust!! Game over!!"
+      puts "#{self.hand.total}!! #{self.name} you are bust!! Game over!!"
     else
       puts "#{self.name} your current total is #{self.hand.total}"
       self.stay_or_go(deck)
