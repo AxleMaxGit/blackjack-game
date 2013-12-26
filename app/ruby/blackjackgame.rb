@@ -13,13 +13,14 @@ class BlackjackGame
     self.players.each do |player|
       player.get_hand(deck)
     end
+    puts "There are #{deck.cards.length} cards left in the deck"
   end
 
-  def play_round
+  def play_round(deck)
     #show running total for each player
     self.players.each do |p|
-      p.current_total
-      p.stay_or_go
+      puts "#{p.name} your total so far is #{p.hand.total}"
+      p.stay_or_go(deck)
       puts "\n" 
     end
   end
@@ -34,13 +35,14 @@ game1 = BlackjackGame.new
 
 #set players
 #TODO replace with a  method to ask for number of players 
-game1.players[0] = Player.new("Dealer", true)
-game1.players[1] = Player.new("Alex", false)
-game1.players[2] = Player.new("Clare", false)
+
+game1.players[0] = Player.new("Alex", false)
+game1.players[1] = Player.new("Clare", false)
+game1.players[2] = Player.new("Dealer", true)
 puts "\n"
 
 #deal starting hands
 game1.deal(game1.deck)
 
-game1.play_round
+game1.play_round(game1.deck)
 

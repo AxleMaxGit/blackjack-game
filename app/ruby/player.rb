@@ -7,7 +7,7 @@ class Player
     @name = name
     @is_dealer = is_dealer
     puts "#{name} is ready ..."
-    puts self.inspect
+    #puts self.inspect
   end
 
   def get_hand(deck)
@@ -15,39 +15,34 @@ class Player
     @hand = Hand.new(deck)
     #dealer only shows one card
     if self.is_dealer==true
-      puts "#{self.hand.cards.first.inspect} <Card hidden>."
+      self.hand.show_dealer_hand
     else
       #players see their own cards
-      puts self.hand.inspect
+      self.hand.show_hand
     end
     puts "\n"
   end
 
-  def get_card
-
-  end
-
-  def current_total
-    @total = 0
-    self.hand.cards.each do |c|
-      if c.rank == "A" 
-        @total += 11
-      elsif c.rank == "J" || c.rank == "Q" || c.rank == "K"
-        @total += 10 
-      else
-        @total += c.rank.to_i
-      end
-    end
-    puts "#{self.name}, you have #{@total}"
-  end
-
-  def stay_or_go
+  def stay_or_go(deck)
     puts "Would you like another card? (y)"
     decision = gets
     if decision == "y\n"
       puts "you take a card"
+      self.hand.next_card(deck)
+      puts self.hand.inspect
+      self.is_bust(deck)
     else
-      puts "You have stopped on #{@total}"
+      puts "You have stopped on #{self.hand.total}"
+      return
+    end
+  end
+
+  def is_bust(deck)
+    if self.hand.total > 21
+      puts "#{self.hand.total}!! You are bust!! Game over!!"
+    else
+      puts "#{self.name} your current total is #{self.hand.total}"
+      self.stay_or_go(deck)
     end
   end
 
