@@ -12,37 +12,43 @@ class Player
   def get_hand(deck)
     puts "Dealing hand to #{self.name} "
     @hand = Hand.new(deck)
-    #dealer only shows one card
-    if self.is_dealer==true
-      self.hand.show_dealer_hand
-    else
-      #players see their own cards
+    #both player cards are dealt face up
+    if self.is_dealer == false
       self.hand.show_hand
+    else
+      #dealer only shows one card
+      self.hand.show_dealer_hand
     end
     puts "\n"
   end
 
   def player_turn(deck)
-    puts "Would you like another card? (y)"
-    decision = gets
-    if decision == "y\n"
-      puts "#{self.name} takes a card"
-      self.hand.next_card(deck)
-      self.hand.show_hand
-      self.is_bust(deck)
-    else
-      puts "#{self.name} has stopped on #{self.hand.total}"
+    if self.hand.total == 21
       return
+    else
+      puts "Would you like another card? (y)"
+      decision = gets
+      if decision == "y\n"
+        puts "\n#{self.name} you take a card. Your hand is now ..."
+        self.hand.next_card(deck)
+        self.hand.show_hand
+        self.is_bust(deck)
+      else
+        puts "#{self.name} has stopped on #{self.hand.total}"
+        return
+      end
     end
   end
 
   def dealer_turn(deck)
     if self.hand.total < 17
-      self.hand.show_hand
-      puts "#{self.name} takes a card"
+      #self.hand.show_hand
+      puts "#{self.name} you take a card. Your hand is now ..."
       self.hand.next_card(deck)
+      self.hand.show_hand
       self.is_bust(deck)
     else 
+      self.hand.show_hand
       puts "Dealer stays on #{self.hand.total}"
     end 
   end

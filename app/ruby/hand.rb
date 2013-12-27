@@ -32,6 +32,7 @@ class Hand
     self.cards.each do |c|
       puts "#{c.rank} of #{c.suit}s  "
     end
+    #puts "\n"
   end
 
   def show_dealer_hand

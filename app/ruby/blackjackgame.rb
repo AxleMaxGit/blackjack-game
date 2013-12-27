@@ -13,7 +13,7 @@ class BlackjackGame
     self.players.each do |player|
       player.get_hand(deck)
     end
-    puts "There are #{deck.cards.length} cards left in the deck. Let's Play!!!\n\n\n\n"
+    puts "There are #{deck.cards.length} cards left in the deck. Let's Play Black Jack!!!\n\n\n\n"
   end
 
   def play_round(deck)    
