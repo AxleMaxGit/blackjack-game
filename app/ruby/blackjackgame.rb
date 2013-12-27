@@ -13,7 +13,7 @@ class BlackjackGame
     self.players.each do |player|
       player.get_hand(deck)
     end
-    puts "There are #{deck.cards.length} cards left in the deck. Let's Play!!!\n\n"
+    puts "There are #{deck.cards.length} cards left in the deck. Let's Play!!!\n\n\n\n"
   end
 
   def play_round(deck)    
@@ -21,7 +21,7 @@ class BlackjackGame
       if p.is_dealer == false
         puts "#{p.name} your total so far is #{p.hand.total}"
         p.hand.show_hand
-        p.stay_or_go(deck)
+        p.player_turn(deck)
         puts "\n"
       else
         puts "#{p.name} your total so far is #{p.hand.total}"
@@ -36,18 +36,24 @@ class BlackjackGame
       if p.is_dealer == true
         return
       else
-        if p.hand.total > 21
+        #check for Blackjack
+        if p.hand.total == 21 && p.hand.cards.length == 2
+          puts "Black Jack!! #{p.name} wins!!"
+        #If player is bust. Player Lose
+        elsif p.hand.total > 21
           puts "#{p.name} you were bust. You lose!!"
-        #if dealer is bust = WIN
+        #if dealer is bust = Player Win
         elsif self.players.last.hand.total > 21
           puts "The dealer is bust. #{p.name} wins!!"
-        #TODO compare against dealer hand 
-        elsif p.hand.total <= self.players.last.hand.total
+        #Test for draw
+        elsif p.hand.total == self.players.last.hand.total
+          puts "Dealer has #{self.players.last.hand.total}. #{p.name} has #{p.hand.total}. It's a draw"
+        #test for dealer win
+        elsif p.hand.total < self.players.last.hand.total
           puts "Dealer has #{self.players.last.hand.total}. #{p.name} has #{p.hand.total}. Dealer wins"
+        #else player wins
         else
-          puts "#{p.name} has #{p.hand.total}. Dealer has #{self.players.last.hand.total}. #{p.name} wins!!"
-          #puts "#{self.players.last.name} had #{self.players.last.hand.total}"
-          #puts "#{p.name} had #{p.hand.total}"       
+          puts "#{p.name} has #{p.hand.total}. Dealer has #{self.players.last.hand.total}. #{p.name} wins!!"      
         end
       end
     end

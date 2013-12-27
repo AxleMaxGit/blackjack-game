@@ -22,17 +22,13 @@ class Player
     puts "\n"
   end
 
-  def stay_or_go(deck)
+  def player_turn(deck)
     puts "Would you like another card? (y)"
     decision = gets
     if decision == "y\n"
       puts "#{self.name} takes a card"
       self.hand.next_card(deck)
-      if self.is_dealer
-        self.hand.show_dealer_hand
-      else
-        self.hand.show_hand
-      end
+      self.hand.show_hand
       self.is_bust(deck)
     else
       puts "#{self.name} has stopped on #{self.hand.total}"
@@ -59,7 +55,7 @@ class Player
       if self.is_dealer == true
         dealer_turn(deck)
       else
-        self.stay_or_go(deck)
+        self.player_turn(deck)
       end
     end
   end
