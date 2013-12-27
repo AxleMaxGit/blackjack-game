@@ -16,21 +16,39 @@ class BlackjackGame
     puts "There are #{deck.cards.length} cards left in the deck. Let's Play!!!\n\n"
   end
 
-  def play_round(deck)
-    #show running total for each player
+  def play_round(deck)    
     self.players.each do |p|
-      puts "#{p.name} your total so far is #{p.hand.total}"
-      p.stay_or_go(deck)
-      puts "\n" 
+      if p.is_dealer == false
+        puts "#{p.name} your total so far is #{p.hand.total}"
+        p.hand.show_hand
+        p.stay_or_go(deck)
+        puts "\n"
+      else
+        puts "#{p.name} your total so far is #{p.hand.total}"
+        p.dealer_turn(deck)
+        puts "\n"
+      end   
     end
   end
 
   def results
     self.players.each do |p|
-      if p.hand.total <= 21
-        puts "#{p.name} had #{p.hand.total}"
+      if p.is_dealer == true
+        return
       else
-        puts "#{p.name} was bust!! \(#{p.hand.total}\)"
+        if p.hand.total > 21
+          puts "#{p.name} you were bust. You lose!!"
+        #if dealer is bust = WIN
+        elsif self.players.last.hand.total > 21
+          puts "The dealer is bust. #{p.name} wins!!"
+        #TODO compare against dealer hand 
+        elsif p.hand.total <= self.players.last.hand.total
+          puts "Dealer has #{self.players.last.hand.total}. #{p.name} has #{p.hand.total}. Dealer wins"
+        else
+          puts "#{p.name} has #{p.hand.total}. Dealer has #{self.players.last.hand.total}. #{p.name} wins!!"
+          #puts "#{self.players.last.name} had #{self.players.last.hand.total}"
+          #puts "#{p.name} had #{p.hand.total}"       
+        end
       end
     end
   end

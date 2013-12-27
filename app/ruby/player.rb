@@ -6,8 +6,7 @@ class Player
   def initialize(name, is_dealer)
     @name = name
     @is_dealer = is_dealer
-    puts "#{name} is ready ..."
-    #puts self.inspect
+    #puts "#{name} is ready ..."
   end
 
   def get_hand(deck)
@@ -36,9 +35,20 @@ class Player
       end
       self.is_bust(deck)
     else
-      puts "You have stopped on #{self.hand.total}"
+      puts "#{self.name} has stopped on #{self.hand.total}"
       return
     end
+  end
+
+  def dealer_turn(deck)
+    if self.hand.total < 17
+      self.hand.show_hand
+      puts "#{self.name} takes a card"
+      self.hand.next_card(deck)
+      self.is_bust(deck)
+    else 
+      puts "Dealer stays on #{self.hand.total}"
+    end 
   end
 
   def is_bust(deck)
@@ -46,7 +56,11 @@ class Player
       puts "#{self.hand.total}!! #{self.name} you are bust!! Game over!!"
     else
       puts "#{self.name} your current total is #{self.hand.total}"
-      self.stay_or_go(deck)
+      if self.is_dealer == true
+        dealer_turn(deck)
+      else
+        self.stay_or_go(deck)
+      end
     end
   end
 
