@@ -6,7 +6,10 @@
 			<span> <%= c.rank %> of </span>
 			<span> <%= c.suit %>,  </span>
 		<% end %>	
-	<span> Total: <%= p.hand.total ; %> </span></p>
+	<span> Total: <%= p.hand.total ; %> </span>
+	<span> <%= link_to "Hit", blackjack_path %> </span>
+	<span> <%= link_to "Stay", blackjack_path %> </span>
+	</p>
 <% end %>
 
 <hr />
