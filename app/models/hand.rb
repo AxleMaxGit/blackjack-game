@@ -23,23 +23,4 @@ class Hand
     end
   end
 
-  def next_card(deck)
-    self.cards.push(deck.cards.pop)
-    self.calc_total
-  end
-
-  def show_hand
-    self.cards.each do |c|
-      puts "#{c.rank} of #{c.suit}s  "
-    end
-    #puts "\n"
-  end
-
-  def show_dealer_hand
-    self.cards[1..(self.cards.length)].each do |c|
-      puts "#{c.rank} of #{c.suit}s  "
-    end  
-    puts "<this card is face down>"
-  end
-
 end
